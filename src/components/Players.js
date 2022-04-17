@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import { Link, Route } from 'react-router-dom';
+import {
+  TransitionGroup,
+  CSSTransition
+} from 'react-transition-group';
 import Sidebar from './Sidebar';
 import { parse } from 'query-string';
 import { getPlayers } from '../api';
@@ -59,41 +63,49 @@ export default class Players extends Component {
             ));
 
           return (
-            <div className="panel">
-              <img 
-                className="avatar"
-                src={`${avatar}`}
-                alt={`${name}'s avatar`}
-              />
-              <h1 className="medium-header">{name}</h1>
-              <h3 className="header">#{number}</h3>
+            <TransitionGroup className="panel">
+              <CSSTransition
+                key={location.key}
+                classNames="fade"
+                timeout={250}
+              > 
+                <div className="panel">
+                  <img 
+                    className="avatar"
+                    src={`${avatar}`}
+                    alt={`${name}'s avatar`}
+                  />
+                  <h1 className="medium-header">{name}</h1>
+                  <h3 className="header">#{number}</h3>
 
-              <div className="row">
-                <ul 
-                  className="info-list" 
-                  style={{marginRight: 80}}
-                >
-                  <li>Team
-                    <div>
-                      <Link 
-                        to={`/${teamId}`}
-                        style={{color: "#68809a"}}
-                      >
-                        {teamId[0].toUpperCase() + teamId.slice(1)}
-                      </Link>
-                    </div>
-                  </li>
-                  <li>Position<div>{position}</div></li>
-                  <li>PPG<div>{ppg}</div></li>
-                </ul>
+                  <div className="row">
+                    <ul 
+                      className="info-list" 
+                      style={{marginRight: 80}}
+                    >
+                      <li>Team
+                        <div>
+                          <Link 
+                            to={`/${teamId}`}
+                            style={{color: "#68809a"}}
+                          >
+                            {teamId[0].toUpperCase() + teamId.slice(1)}
+                          </Link>
+                        </div>
+                      </li>
+                      <li>Position<div>{position}</div></li>
+                      <li>PPG<div>{ppg}</div></li>
+                    </ul>
 
-                <ul className="info-list">
-                  <li>APG<div>{apg}</div></li>
-                  <li>RPG<div>{rpg}</div></li>
-                  <li>SPG<div>{spg}</div></li>
-                </ul>
-              </div>
-            </div>
+                    <ul className="info-list">
+                      <li>APG<div>{apg}</div></li>
+                      <li>RPG<div>{rpg}</div></li>
+                      <li>SPG<div>{spg}</div></li>
+                    </ul>
+                  </div>
+                </div>
+              </CSSTransition>
+            </TransitionGroup>
           )
         }}/>
       </div>

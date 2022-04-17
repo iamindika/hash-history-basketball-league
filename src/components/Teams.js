@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Sidebar from './Sidebar';
 import Team from './Team';
 import TeamLogo from './TeamLogo';
+import Loading from './Loading';
 import { Route, Link } from 'react-router-dom';
 import { getTeamNames } from '../api';
 
@@ -41,7 +42,7 @@ export default class Teams extends Component {
             <div className="panel">
               <Team id={match.params.teamId}>
                 {(team) => team === null
-                  ? <h1>LOADING</h1>
+                  ? <Loading/>
                   : <div style={{width: "100%"}}>
                       <TeamLogo 
                         id={team.id}

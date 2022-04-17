@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import TeamLogo from './TeamLogo';
 import Team from './Team';
+import Loading from './Loading';
 import { 
   getTeamsArticles, 
   getTeamNames } from '../api';
@@ -39,7 +40,7 @@ export default class TeamPage extends Component {
       <div>
         <Team id={teamId}>
           {(team) => team === null 
-            ? <h1>LOADING</h1>
+            ? <Loading/>
             : <div className="panel">
                 <TeamLogo id={teamId} />
 
