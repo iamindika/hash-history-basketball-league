@@ -4,11 +4,49 @@ import {
   Route,
   Switch
 } from 'react-router-dom';
+import Loading from './Loading';
+import DynamicImport from './DynamicImport';
 import Navbar from './Navbar';
-import Home from './Home';
-import Players from './Players';
-import Teams from './Teams';
-import TeamPage from './TeamPage';
+
+const Articles = (props) => (
+  <DynamicImport load={() => import('./Articles')}>
+    {(Component) => Component === null 
+      ? <Loading/>
+      : <Component {...props} />}
+  </DynamicImport>
+);
+
+const TeamPage = (props) => (
+  <DynamicImport load={() => import('./TeamPage')}>
+    {(Component) => Component === null 
+      ? <Loading/>
+      : <Component {...props} />}
+  </DynamicImport>
+);
+
+const Teams = (props) => (
+  <DynamicImport load={() => import('./Teams')}>
+    {(Component) => Component === null 
+      ? <Loading/>
+      : <Component {...props} />}
+  </DynamicImport>
+);
+
+const Players = (props) => (
+  <DynamicImport load={() => import('./Players')}>
+    {(Component) => Component === null 
+      ? <Loading/>
+      : <Component {...props} />}
+  </DynamicImport>
+);
+
+const Home = (props) => (
+  <DynamicImport load={() => import('./Home')}>
+    {(Component) => Component === null 
+      ? <Loading/>
+      : <Component {...props} />}
+  </DynamicImport>
+);
 
 function App() {
   return (
@@ -20,7 +58,8 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route path="/players" component={Players} />
           <Route path="/teams" component={Teams} />
-          <Route path="/:teamId" component={TeamPage} />
+          <Route exact path="/:teamId" component={TeamPage} />
+          <Route path="/:teamId/articles" component={Articles} />
           <Route render={({location}) => (
             <h2 className="text-center">
               404: {location.pathname} not found!
